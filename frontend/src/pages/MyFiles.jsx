@@ -1,78 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import { Container, Grid, Card, CardContent, Typography, CardActions, Button, CircularProgress, Alert } from '@mui/material';
+import { Container, Card, CardContent, Typography, CardActions, Button } from '@mui/material';
 import { FiDownload } from 'react-icons/fi';
 
-const MyFiles = () => {
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const cardStyle = {
+  minWidth: 275,
+  padding: '20px',
+  textAlign: 'center',
+  margin: 'auto',
+  marginTop: '20vh',
+};
 
-  useEffect(() => {
-    const fetchFiles = async () => {
-        const { userName } = JSON.parse(sessionStorage.getItem("user"))
+const buttonStyle = {
+  marginTop: '20px',
+};
 
-      try {
-        const response = await axios.get(`http://localhost:3001/api/resume/files/${userName}`);
-        setFiles(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
+const downloadPdf = async () => {
+  try {
+    const { userName } = JSON.parse(sessionStorage.getItem('user'));
+    const response = await axios.get(`http://localhost:3001/api/resume/files/${userName}`, {
+      responseType: 'blob',
+    });
 
-    fetchFiles();
-  }, []);
-
-  const handleDownload = (file) => {
-    const byteCharacters = atob(file.pdf.data);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: file.pdf.contentType });
+    // Create a link element and trigger a download
+    const blob = new Blob([response.data], { type: 'application/pdf' });
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${file.name}.pdf`;
-    document.body.appendChild(link);
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `${userName}.pdf`;
     link.click();
-    document.body.removeChild(link);
+
+    // Clean up the URL object
+    window.URL.revokeObjectURL(link.href);
+  } catch (error) {
+    console.error('Error downloading PDF:', error);
+  }
+};
+
+const MyFiles = () => {
+  const handleDownload = () => {
+    downloadPdf();
   };
 
   return (
     <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        My Files
-      </Typography>
-      {loading && <CircularProgress />}
-      {error && <Alert severity="error">Error: {error}</Alert>}
-      <Grid container spacing={4}>
-        {files.map((file) => (
-          <Grid item key={file._id} xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                
-                <Typography color="textSecondary">
-                  Uploaded by: {file.username}
-                </Typography>
-                
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={() => handleDownload(file)}
-                  startIcon={<FiDownload />}
-                >
-                  Download
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <Card style={cardStyle}>
+        <CardContent>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Download Your PDF
+          </Typography>
+          <Typography color="textSecondary" gutterBottom>
+            Click the button below to download your PDF.
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            variant="contained"
+            color="primary"
+            style={buttonStyle}
+            onClick={handleDownload}
+            startIcon={<FiDownload />}
+          >
+            Download PDF
+          </Button>
+        </CardActions>
+      </Card>
     </Container>
   );
 };

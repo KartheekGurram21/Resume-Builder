@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage'
 import NavBar from './components/NavBar'
 import Resume from "./pages/Resume";
 import MyFiles from "./pages/MyFiles"
+import About from "./pages/About"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import './index.css';
@@ -22,7 +23,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my-files" element={<MyFiles />} />
-          <Route path="/about" />
+          <Route path="/about" element={<About />}/>
           <Route path="/contact" />
           <Route path="/templates" />
           <Route path="/resume" element={<Resume/>}/>

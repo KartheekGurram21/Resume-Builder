@@ -29,7 +29,8 @@ const LandingPage = () => {
                                         </div>
                                     </h1>
                                     <h2 className="my-3">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus ut soluta quod expedita quis, vitae
+                                        
+Create your professional resume effortlessly with Resume Builder. Say goodbye to formatting headaches and hello to your dream job.
                                     </h2>
                                     <div className="mt-3">
                                         <div className="btn-get-started ptr" onClick={() => {

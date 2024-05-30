@@ -50,12 +50,12 @@ const Navbar = () => {
                     </li>
                     <li className="nav-item ptr">
                       <div id="3" className="nav-link" onClick={() => handleNavigation("/about", "3")}>
-                        About
+                        About Us
                       </div>
                     </li>
                     <li className="nav-item ptr">
                       <div id="4" className="nav-link" onClick={() => handleNavigation("/contact", "4")}>
-                        Contact
+                        Logout
                       </div>
                     </li>
                   </ul>
