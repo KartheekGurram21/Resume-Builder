@@ -12,6 +12,7 @@ function SignUpPage() {
     password: "",
     confirmPassword: ""
   });
+  const [error, setError] = useState("");
 
   const navigate = useNavigate()
 
@@ -31,7 +32,8 @@ function SignUpPage() {
         console.log(res)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response.data);
+        setError(err.response.data.error);
       })
   }
 
@@ -84,7 +86,7 @@ function SignUpPage() {
                   color='primary'
                 />
               </div>
-              {/* {errors.confirmPassword && <p style={{ color: "red", fontSize: "13px" }}>{errors.confirmPassword}</p>} */}
+              {error && <p style={{ color: "red", marginBottom: "13px" }}>{error}</p>}
               <div style={{ alignSelf: 'center', marginBottom: "10px" }}>
                 <Button variant='outlined' type='submit'>SignUp</Button>
               </div>

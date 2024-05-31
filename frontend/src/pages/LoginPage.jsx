@@ -13,6 +13,7 @@ function LoginPage() {
   });
 
   const navigate = useNavigate()
+  const [error, setError] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,7 +33,8 @@ function LoginPage() {
         navigate("/")
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response.data);
+        setError(err.response.data.error);
       })
   }
 
@@ -74,7 +76,7 @@ function LoginPage() {
                 />
                 {/* {errors.password && <p style={{ color: "red", fontSize: "13px" }}>{errors.password}</p>} */}
               </div>
-
+              {error && <p style={{ color: "red", marginBottom: "13px" }}>{error}</p>}
               <div style={{ alignSelf: 'center', marginBottom:"10px" }}>
                 <Button variant='outlined' type='submit'>Login</Button>
               </div>

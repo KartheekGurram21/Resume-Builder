@@ -16,12 +16,21 @@ const userSchema = new mongoose.Schema({
 
 
 userSchema.statics.signup = async function(userName, password, confirmPassword) {
-    
+    const pattern = /^[a-zA-Z0-9_.@]+$/
     if(!userName || !password || !confirmPassword) {
         throw Error('All fields must be filled')
     }
     if(!( password === confirmPassword )) {
         throw Error('Passwords are not matched')
+    }
+    if(userName.length<6 || userName.length>20) {
+        throw Error('Username must be in 6 - 20 characters')
+    }
+    if(!pattern.test(userName)) {
+        throw Error('Username should contain only alphabets, numbers or @ . _');
+    }
+    if(password.length < 6) {
+        throw Error('Password should atleast be 6 characters');
     }
     const exists = await this.findOne({userName})
     if(exists) {

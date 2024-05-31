@@ -24,8 +24,6 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my-files" element={<MyFiles />} />
           <Route path="/about" element={<About />}/>
-          <Route path="/contact" />
-          <Route path="/templates" />
           <Route path="/resume" element={<Resume/>}/>
         </Routes>
       </BrowserRouter>

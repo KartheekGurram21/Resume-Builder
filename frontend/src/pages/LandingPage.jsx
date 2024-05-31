@@ -9,7 +9,7 @@ const LandingPage = () => {
         const user = JSON.parse(sessionStorage.getItem('user'))
         console.log(user)
         if (user == null)
-            navigate("/signup")
+            navigate("/login")
         else {
             navigate(path)
         }

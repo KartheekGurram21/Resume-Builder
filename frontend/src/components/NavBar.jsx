@@ -2,24 +2,26 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNavigation = (path, id) => {
-    // Perform navigation logic here
-    // console.log(`Navigating to ${path}`);
-    // (user) ? navigate(path) : navigate("/login")
-    const user = JSON.parse(sessionStorage.getItem('user'))
-    console.log(user)
-    if (user == null)
-      navigate("/signup")
+    if (id === "4") {
+      // Log out the user
+      sessionStorage.removeItem('user');
+      // Navigate to login page
+      navigate('/login');
+      return;
+    }
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user == null) navigate("/login");
     else {
       const ids = ["1", "2", "3", "4"];
-      ids.forEach(e => {
-        document.getElementById(e).className = "nav-link"
-      })
-      document.getElementById(id).className = "nav-link active"
-      navigate(path)
+      ids.forEach((e) => {
+        document.getElementById(e).className = "nav-link";
+      });
+      document.getElementById(id).className = "nav-link active";
+      navigate(path);
     }
   };
 
@@ -30,7 +32,11 @@ const Navbar = () => {
           <div className="col-10 mx-auto">
             <nav className="navbar navbar-expand-lg navbar-light">
               <div className="container-fluid">
-                <div id="-1" className="navbar-brand ptr ms-auto" onClick={() => navigate('/')}>
+                <div
+                  id="-1"
+                  className="navbar-brand ptr ms-auto"
+                  onClick={() => navigate("/")}
+                >
                   Resume Builder
                 </div>
                 <div
@@ -39,22 +45,41 @@ const Navbar = () => {
                 >
                   <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li className="nav-item ptr">
-                      <div id="1" className="nav-link active" aria-current="page" onClick={() => handleNavigation("/", "1")}>
+                      <div
+                        id="1"
+                        className="nav-link active"
+                        aria-current="page"
+                        onClick={() => handleNavigation("/", "1")}
+                      >
                         Home
                       </div>
                     </li>
                     <li className="nav-item ptr">
-                      <div id="2" className="nav-link" onClick={() => { handleNavigation("/my-files", "2") }}>
+                      <div
+                        id="2"
+                        className="nav-link"
+                        onClick={() => {
+                          handleNavigation("/my-files", "2");
+                        }}
+                      >
                         My Files
                       </div>
                     </li>
                     <li className="nav-item ptr">
-                      <div id="3" className="nav-link" onClick={() => handleNavigation("/about", "3")}>
+                      <div
+                        id="3"
+                        className="nav-link"
+                        onClick={() => handleNavigation("/about", "3")}
+                      >
                         About Us
                       </div>
                     </li>
                     <li className="nav-item ptr">
-                      <div id="4" className="nav-link" onClick={() => handleNavigation("/contact", "4")}>
+                      <div
+                        id="4"
+                        className="nav-link"
+                        onClick={() => handleNavigation("/logout", "4")}
+                      >
                         Logout
                       </div>
                     </li>

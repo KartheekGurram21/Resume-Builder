@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Card, CardContent, Typography, CardActions, Button } from '@mui/material';
+import { Container, Card, CardContent, Typography, CardActions, Button, List, ListItem, ListItemText } from '@mui/material';
 import { FiDownload } from 'react-icons/fi';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 const cardStyle = {
   minWidth: 275,
@@ -15,30 +17,38 @@ const buttonStyle = {
   marginTop: '20px',
 };
 
-const downloadPdf = async () => {
-  try {
-    const { userName } = JSON.parse(sessionStorage.getItem('user'));
-    const response = await axios.get(`http://localhost:3001/api/resume/files/${userName}`, {
-      responseType: 'blob',
-    });
-
-    // Create a link element and trigger a download
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = `${userName}.pdf`;
-    link.click();
-
-    // Clean up the URL object
-    window.URL.revokeObjectURL(link.href);
-  } catch (error) {
-    console.error('Error downloading PDF:', error);
-  }
-};
-
 const MyFiles = () => {
-  const handleDownload = () => {
-    downloadPdf();
+  const [files, setFiles] = useState([]);
+
+  const downloadZip = async () => {
+    try {
+      const { userName } = JSON.parse(sessionStorage.getItem('user'));
+      const response = await axios.get(`http://localhost:3001/api/resume/files/${userName}`, {
+        responseType: 'blob',
+      });
+
+      const zip = new JSZip();
+      const extractedFiles = [];
+
+      // Load the zip file
+      zip.loadAsync(response.data).then((contents) => {
+        Object.keys(contents.files).forEach(async (filename) => {
+          const fileData = await zip.file(filename).async('blob');
+          extractedFiles.push({ name: filename, data: fileData });
+
+          // Display the extracted files once all files are processed
+          if (extractedFiles.length === Object.keys(contents.files).length) {
+            setFiles(extractedFiles);
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Error downloading ZIP:', error);
+    }
+  };
+
+  const handleFileDownload = (file) => {
+    saveAs(file.data, file.name);
   };
 
   return (
@@ -46,10 +56,10 @@ const MyFiles = () => {
       <Card style={cardStyle}>
         <CardContent>
           <Typography variant="h5" component="h2" gutterBottom>
-            Download Your PDF
+            Download Your Resumes
           </Typography>
           <Typography color="textSecondary" gutterBottom>
-            Click the button below to download your PDF.
+            Click the button below to download your resumes.
           </Typography>
         </CardContent>
         <CardActions>
@@ -57,13 +67,22 @@ const MyFiles = () => {
             variant="contained"
             color="primary"
             style={buttonStyle}
-            onClick={handleDownload}
+            onClick={downloadZip}
             startIcon={<FiDownload />}
           >
-            Download PDF
+            Download Resumes
           </Button>
         </CardActions>
       </Card>
+      {files.length > 0 && (
+        <List>
+          {files.map((file, index) => (
+            <ListItem key={index} button onClick={() => handleFileDownload(file)}>
+              <ListItemText primary={file.name} />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Container>
   );
 };

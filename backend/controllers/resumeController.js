@@ -1,5 +1,6 @@
 const Resume = require('../models/resumeModel');
 const multer = require('multer');
+const archiver = require('archiver')
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single('pdf');
@@ -36,18 +37,21 @@ const serveResume = async (req, res) => {
   try {
     const { username } = req.params;
     console.log(username);
-    const resume = await Resume.findOne({ username });
+    const resumes = await Resume.find({ username });
 
-    if (resume && resume.pdf_data && resume.pdf_data.data) {
-      const resumeData = resume.pdf_data.data;
-
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', `attachment; filename="${username}.pdf"`);
-      console.log(resumeData)
-      res.send(resumeData);
-      
+    if(resumes && resumes.length > 0) {
+      const archive = archiver('zip', { zlib: { level: 9 }})
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="${username}_resumes.zip"`);
+      archive.pipe(res);
+      resumes.forEach((resume, index) => {
+        if(resume.pdf_data && resume.pdf_data.data) {
+          archive.append(Buffer.from(resume.pdf_data.data), { name: `${username}_resume_${index + 1}.pdf`})
+        }
+      })
+      archive.finalize();
     } else {
-      res.status(404).send('No resumes found');
+      res.status(404).send('No resumes found')
     }
   } catch (error) {
     console.log(error);
