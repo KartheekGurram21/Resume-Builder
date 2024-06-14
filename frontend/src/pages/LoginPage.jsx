@@ -26,7 +26,7 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3001/api/user/login', { userName: credentials.username, password: credentials.password})
+    axios.post('https://resumebuilder-8kmu.onrender.com/api/user/login', { userName: credentials.username, password: credentials.password})
       .then(res => {
         sessionStorage.setItem('user', JSON.stringify(res.data))
         console.log(res.data.userName)

@@ -27,7 +27,7 @@ function SignUpPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3001/api/user/signUp', { userName: credentials.username, password: credentials.password, confirmPassword: credentials.confirmPassword })
+    axios.post('https://resumebuilder-8kmu.onrender.com/api/user/signUp', { userName: credentials.username, password: credentials.password, confirmPassword: credentials.confirmPassword })
       .then(res => {
         console.log(res.userName)
         navigate('/login')

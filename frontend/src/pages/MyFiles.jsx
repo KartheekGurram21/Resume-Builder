@@ -23,7 +23,7 @@ const MyFiles = () => {
   const downloadZip = async () => {
     try {
       const { userName } = JSON.parse(sessionStorage.getItem('user'));
-      const response = await axios.get(`http://localhost:3001/api/resume/files/${userName}`, {
+      const response = await axios.get(`https://resumebuilder-8kmu.onrender.com/api/resume/files/${userName}`, {
         responseType: 'blob',
       });
 
