@@ -1,4 +1,4 @@
-Resume Builder
+# Resume Builder
 Welcome to Resume Builder, a full-stack web application for creating and managing professional resumes.
 
 Features
