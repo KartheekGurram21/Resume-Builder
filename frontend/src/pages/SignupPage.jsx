@@ -30,6 +30,7 @@ function SignUpPage() {
     axios.post('http://localhost:3001/api/user/signUp', { userName: credentials.username, password: credentials.password, confirmPassword: credentials.confirmPassword })
       .then(res => {
         console.log(res.userName)
+        navigate('/login')
       })
       .catch(err => {
         console.log(err.response.data);
