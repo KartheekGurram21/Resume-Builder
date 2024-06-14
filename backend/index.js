@@ -13,7 +13,11 @@ const uri = process.env.MONGO_URI
 
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: [
+        'http://localhost:3000',
+        'resume-builder-six-kappa.vercel.app',
+        'resume-builder-ecl4oxik3-woolneats-projects.vercel.app'
+    ]
 }))
 
 

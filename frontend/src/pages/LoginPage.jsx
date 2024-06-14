@@ -29,7 +29,7 @@ function LoginPage() {
     axios.post('http://localhost:3001/api/user/login', { userName: credentials.username, password: credentials.password})
       .then(res => {
         sessionStorage.setItem('user', JSON.stringify(res.data))
-        console.log(res.data)
+        console.log(res.data.userName)
         navigate("/")
       })
       .catch(err => {
