@@ -21,7 +21,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/Woolneat/ResumeBuilder.git
+`git clone https://github.com/Woolneat/ResumeBuilder.git`
 cd ResumeBuilder
 Install dependencies:
 
