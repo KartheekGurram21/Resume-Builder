@@ -9,18 +9,17 @@ Backend API:         Node.js backend with MongoDB for storing user data and resu
 
 ### Technologies Used
 Frontend:             React, JavaScript, HTML, CSS  
-Backend:              Node.js, Express.js, MongoDB  
-API:                  RESTful API for CRUD operations on resumes  
+Backend:              Node.js, Express.js, MongoDB   
 Deployment:           Frontend deployed on Vercel, Backend deployed on Render  
 Third-Party Services: MongoDB Atlas for database hosting  
 
 ## Getting Started
 To run the project locally, follow these steps:
 
-Clone the repository:
+Clone the repository:  
 
-bash
-Copy code
+bash  
+Copy code  
 `git clone https://github.com/Woolneat/ResumeBuilder.git`
 cd ResumeBuilder
 Install dependencies:
