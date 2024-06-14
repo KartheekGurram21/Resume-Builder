@@ -4,6 +4,7 @@ Welcome to Resume Builder, a full-stack web application for creating and managin
 ## Tech used
 - React
 - MUI
+- bootstrap
 - NodeJs and ExpressJs
 - Mongodb and Mongoose
 - Bcrypt and Validator
