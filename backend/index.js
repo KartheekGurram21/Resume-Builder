@@ -15,7 +15,7 @@ const uri = process.env.MONGO_URI
 app.use(cors({
     origin: [
         'http://localhost:3000',
-        'https://resume-generator-pi.vercel.app'
+        'https://resumegenerator-alpha.vercel.app'
     ]
 }))
 
