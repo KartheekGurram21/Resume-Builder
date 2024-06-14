@@ -2,8 +2,8 @@
 Welcome to Resume Builder, a full-stack web application for creating and managing professional resumes.
 
 ### Features
-User Authentication: Secure user registration and login functionality.
-Resume Creation: Build resumes using a user-friendly interface with customizable sections.
+Resume Creation: Build resumes using a user-friendly interface with customizable sections.  
+
 Resume Templates: Choose from a variety of professionally designed templates.
 Export and Download: Export resumes in PDF format for easy sharing and printing.
 Backend API: Node.js backend with MongoDB for storing user data and resumes.
