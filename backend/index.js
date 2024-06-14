@@ -1,20 +1,30 @@
 const express = require('express')
+require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/userRoutes')
 const resumeRoutes = require('./routes/resumeRoutes')
 
 const app = express()
-const PORT = 3001
 
 
-app.use(cors())
+const PORT = process.env.PORT
+const uri = process.env.MONGO_URI
+
+
+app.use(cors({
+    origin: 'http://localhost:3000'
+}))
+
+
 app.use(express.json())
+
+
 app.use('/api/user',userRoutes)
 app.use('/api/resume',resumeRoutes)
 
 
-mongoose.connect('mongodb+srv://kartheek:mongodb123@rtfp.6p7fuja.mongodb.net/')
+mongoose.connect(uri)
 .then(res => {
     console.log('connected to db')
 })
