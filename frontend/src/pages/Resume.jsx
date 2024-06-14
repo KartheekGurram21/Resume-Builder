@@ -36,7 +36,7 @@ function Resume() {
 
 
         try {
-            await axios.post('http://localhost:3001/api/resume/upload', formData, {
+            await axios.post('https://resumebuilder-8kmu.onrender.com/api/resume/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
