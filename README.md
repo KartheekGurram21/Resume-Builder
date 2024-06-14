@@ -21,7 +21,7 @@ The above commands will install all dependencies. Now, before running the applic
 create a .env file in backend folder and add the following code to it.
 
 ```
-PORT = <your port number or just use 3000>
+PORT = <your port number or just use 3001>
 MONGO_URI = mongodb+srv://<user_name>:<password>@<cluster-name>.iwpphli.mongodb.net/?retryWrites=true&w=majority
 ```
 ```
