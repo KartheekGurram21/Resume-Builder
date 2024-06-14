@@ -3,10 +3,10 @@ Welcome to Resume Builder, a full-stack web application for creating and managin
 
 ### Features
 Resume Creation: Build resumes using a user-friendly interface with customizable sections.  
+Resume Templates: Choose from a variety of professionally designed templates.  
+Export and Download: Export resumes in PDF format for easy sharing and printing.  
+Backend API: Node.js backend with MongoDB for storing user data and resumes.  
 
-Resume Templates: Choose from a variety of professionally designed templates.
-Export and Download: Export resumes in PDF format for easy sharing and printing.
-Backend API: Node.js backend with MongoDB for storing user data and resumes.
 ### Technologies Used
 Frontend: React, JavaScript, HTML, CSS
 Backend: Node.js, Express.js, MongoDB
