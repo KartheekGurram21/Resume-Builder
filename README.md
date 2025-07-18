@@ -34,7 +34,5 @@ npm run dev
 ```
 
 I'm using Mongodb Atlas to store data , so just add your own connection string.
-This website also has user authentication and authorization
-using Bcrypt,  validator.
 
 #### The website is live on vercel https://resumegenerator-alpha.vercel.app/  
